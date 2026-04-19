@@ -1,0 +1,35 @@
+experiment:
+  name: fraud-detection-xgboost
+  tracking_uri: mlruns
+
+data:
+  input_path: data/raw/fraud_transactions.csv
+  target_column: is_fraud
+  id_column: transaction_id
+  test_size: 0.2
+  random_state: 42
+
+training:
+  decision_threshold: 0.72
+  cv_folds: 5
+  sampling_strategy: 0.1
+  n_demo_rows_if_missing: 15000
+  xgb_params:
+    n_estimators: 320
+    max_depth: 5
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.85
+    min_child_weight: 3
+    reg_lambda: 1.2
+    gamma: 0.2
+
+business:
+  investigation_cost: 18.0
+
+artifacts:
+  dir: artifacts
+
+feedback:
+  output_path: data/feedback/analyst_feedback.csv
+
